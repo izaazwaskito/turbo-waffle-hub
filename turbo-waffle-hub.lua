@@ -204,11 +204,11 @@ function farm()
     local count = 0
     local taken = {}
     local startTime = tick()
+	local endTime = 22
 
     print("🚀 Farming start")
 
-    while count < maxTake and tick() - startTime < 50 do
-		if tick() - startTime >= 25 then break end
+    while count < maxTake and tick() - startTime < endTime do
         if not running then return end
 
         local found = false
@@ -235,6 +235,7 @@ function farm()
                 if prompt then
                     fireproximityprompt(prompt)
                     count += 1
+					endTime += 3
                 end
 
                 task.wait(0.5)
