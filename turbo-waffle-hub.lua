@@ -23,7 +23,7 @@ MiniButton.ZIndex = 999
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "Ride Brainrot Auto Farm",
+    Title = "Turbo Waffle Hub",
     Author = "Nerxx",
     Folder = "BrainrotFarm",
     Size = UDim2.fromOffset(500, 350),
@@ -31,7 +31,7 @@ local Window = WindUI:CreateWindow({
 })
 
 Window:EditOpenButton({
-    Title = "Open Example UI",
+    Title = "Turbo Waffle Hub",
     Icon = "monitor",
     CornerRadius = UDim.new(0,16),
     StrokeThickness = 2,
@@ -57,7 +57,7 @@ MainTab:Toggle({
         running = state
 
         if running then
-            print("🟢 Auto Farm ON")
+            print("Auto Farm ON")
             
             -- === LOGIKA ANTI AFK (INTI IY) ===
             if getconnections then
@@ -84,7 +84,7 @@ MainTab:Toggle({
                 end
             end)
         else
-            print("🔴 Auto Farm OFF")
+            print("Auto Farm OFF")
         end
     end
 })
@@ -96,7 +96,7 @@ MainTab:Input({
         local num = tonumber(val)
         if num and num > 0 then
             maxTake = num
-            print("🔢 MaxTake:", maxTake)
+            print("MaxTake:", maxTake)
         end
     end
 })
@@ -108,7 +108,7 @@ MainTab:Input({
         local num = tonumber(val)
         if num then
             minIncome = num
-            print("💰 MinIncome:", minIncome)
+            print("MinIncome:", minIncome)
         end
     end
 })
@@ -175,7 +175,6 @@ local function handleWaiting()
 
     if isWaiting then
         if not inWaiting then
-            print("🟡 Waiting...")
             moveTo(getRandomPointInBox())
             inWaiting = true
             farmedThisRound = false
@@ -183,7 +182,6 @@ local function handleWaiting()
         return true
     else
         if inWaiting then
-            print("🟢 Game mulai")
             inWaiting = false
         end
         return false
@@ -206,7 +204,7 @@ function farm()
     local startTime = tick()
 	local endTime = 22
 
-    print("🚀 Farming start")
+    print("Farming start")
 
     while count < maxTake and tick() - startTime < endTime do
         if not running then return end
@@ -221,7 +219,7 @@ function farm()
                 taken[obj] = true
                 found = true
 
-                print("🎯", obj:GetAttribute("BrainrotName"), "|", getIncome(obj))
+                print(obj:GetAttribute("BrainrotName"), "|", getIncome(obj))
 
                 if obj:IsA("Model") then
                     moveTo(obj:GetPivot())
@@ -245,7 +243,6 @@ function farm()
         end
 
         if not found then
-            print("⏳ Nunggu spawn...")
             task.wait(1)
         end
     end
@@ -253,5 +250,5 @@ function farm()
     moveTo(targetPosition)
     farmedThisRound = true
 
-    print("🏁 Done | Total:", count)
+    print("Done | Total:", count)
 end
