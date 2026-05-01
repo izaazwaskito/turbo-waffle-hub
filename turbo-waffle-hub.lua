@@ -208,6 +208,7 @@ function farm()
     print("🚀 Farming start")
 
     while count < maxTake and tick() - startTime < 50 do
+		if tick() - startTime >= 25 then break end
         if not running then return end
 
         local found = false
