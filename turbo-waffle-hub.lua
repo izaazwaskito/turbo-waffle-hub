@@ -140,17 +140,31 @@ local function moveTo(targetCFrame)
     local hrp = char and char:FindFirstChild("HumanoidRootPart")
     if not hrp then return end
 
-    local distance = (hrp.Position - targetCFrame.Position).Magnitude
+    local startCF = hrp.CFrame
+    local distance = (startCF.Position - targetCFrame.Position).Magnitude
     local speed = 350
     local duration = distance / speed
-
+    
+    -- Tentukan seberapa tinggi lengkungannya (misal 5-10 stud)
+    local arcHeight = 10 
     local start = tick()
-    local startCF = hrp.CFrame
 
     while tick() - start < duration do
         if not running then return end
+        
         local alpha = (tick() - start) / duration
-        hrp.CFrame = startCF:Lerp(targetCFrame, alpha)
+        
+        -- 1. Linear interpolation untuk posisi dasar (maju ke depan)
+        local currentLerp = startCF:Lerp(targetCFrame, alpha)
+        
+        -- 2. Tambahkan kalkulasi parabola untuk tinggi (Y)
+        -- Rumus parabola sederhana: height * sin(pi * alpha)
+        -- Ini akan bernilai 0 di awal, memuncak di tengah, dan kembali ke 0 di akhir
+        local yOffset = math.sin(math.pi * alpha) * arcHeight
+        
+        -- 3. Update CFrame dengan offset tinggi
+        hrp.CFrame = currentLerp * CFrame.new(0, yOffset, 0)
+        
         task.wait()
     end
 
